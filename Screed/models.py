@@ -10,7 +10,7 @@ class User(models.Model):
 
 class Traveler(models.Model):
     name = models.CharField()
-    user = models.ForeignKey(User)
+    # user = models.ForeignKey(User)
 
     def __str__(self):
         return self.name
@@ -39,9 +39,9 @@ class Node(models.Model):
 
 class Choice(models.Model):
     text = models.TextField()
-    parent = models.ForeignKey(Node)
-    target = models.ForeignKey(Node)
+    # parent = models.ForeignKey(Node)
+    # target = models.ForeignKey(Node)
 
 class Reward(models.Model):
-    choice = models.ForeignKey(Choice)
-    item = models.ForeignKey(Item)
+    # choice = models.ForeignKey(Choice)
+    # item = models.ForeignKey(Item)
