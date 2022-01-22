@@ -29,7 +29,7 @@ class Item(models.Model):
         (SUPPORT, 'Support'),
     ]
 
-    name = models.CharField(max_length=128)
+    name = models.CharField(max_length=256)
     type = models.CharField(
         max_length=1,
         choices=TYPES,
@@ -37,9 +37,20 @@ class Item(models.Model):
     )
 
 class Node(models.Model):
-    title = models.CharField(max_length=128)
+    title = models.CharField(max_length=512)
     text = models.TextField()
     authors = models.ManyToManyField(User)
+    score = models.IntegerField()
+
+class edit(models.Model):
+    title = models.CharField(max_length=512)
+    description = models.TextField()
+    text = models.TextField()
+    author = models.OneToOneField(
+        User,
+        on_delete=models.SET_NULL,
+        null=True
+    )
 
 class Choice(models.Model):
     text = models.TextField()
