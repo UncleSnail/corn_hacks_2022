@@ -1,7 +1,6 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render
 from django.http import HttpResponse
 
-def homepage(request):
-    return render(request, 'base.html', {})
 
-# Create your views here.
+def index(request):
+    return HttpResponse("Hello, world. You're at the polls index.")
