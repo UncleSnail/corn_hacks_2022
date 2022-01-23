@@ -2,6 +2,8 @@ from django.shortcuts import get_object_or_404, render
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from Screed.models import *
+from django.contrib.auth.forms import UserCreationForm
+
 
 def index(request):
     paragraphs = ['Does this work?','Am I sciencing?']
@@ -19,7 +21,3 @@ def traveler(request, traveler_id):
     traveler = get_object_or_404(Traveler, pk=traveler_id)
     context = {'traveler': traveler}
     return render(request, 'traveler.html', context)
-
-@login_required
-def private_place(request):
-    return HttpResponse("Don't have access!", content_type="text/plain")
