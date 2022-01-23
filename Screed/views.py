@@ -5,7 +5,6 @@ from django.urls import reverse
 from Screed.models import *
 from django.contrib.auth.forms import UserCreationForm
 
-
 def index(request):
     paragraphs = ['Does this work?','Am I sciencing?']
     context = {
@@ -42,11 +41,38 @@ def choice(request, traveler_id, choice_id):
     # Display the new traveler page.
     return render(request, 'traveler.html', context)
 
-def new(request, user_id, parent_id):
+# def new(request, user_id, parent_id):
+    # user = get_object_or_404(User, pk=user_id)
+    # parent = get_object_or_404(Node, pk=parent_id)
+    # context = {
+    #     'user': user,
+    #     'parent': parent
+    # }
+#     return render(request, 'new.html', context)
+
+from .forms import NewForm
+
+def new_node(request, user_id, parent_id):
     user = get_object_or_404(User, pk=user_id)
     parent = get_object_or_404(Node, pk=parent_id)
+    # if this is a POST request we need to process the form data
+    if request.method == 'POST':
+        # create a form instance and populate it with data from the request:
+        form = NewForm(request.POST)
+        # check whether it's valid:
+        if form.is_valid():
+            # process the data in form.cleaned_data as required
+            # ...
+            # redirect to a new URL:
+            return HttpResponseRedirect('/thanks/')
+
+    # if a GET (or any other method) we'll create a blank form
+    else:
+        form = NewForm()
+
     context = {
         'user': user,
-        'parent': parent
+        'parent': parent,
+        'form': form
     }
     return render(request, 'new.html', context)

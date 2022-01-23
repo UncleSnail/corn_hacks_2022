@@ -1,4 +1,4 @@
-<h1>New Story Node:</h1>
+<!-- <h1>New Story Node:</h1>
 <h2>From:</h2>
 <h3>{{ parent.title }}</h3>
 <p>{{ parent.text }}</p>
@@ -12,10 +12,16 @@ Use check?
 <textarea id="title" name="title"></textarea>
 <br />
 <label for="text">Node Text:</label>
-<textarea id="text" name="text"></textarea>
+<textarea id="text" name="text"></textarea> -->
+
+<form action="/screed/new/{{user.id}}/{{parent.id}}/" method="post">
+    {% csrf_token %}
+    {{ form }}
+    <input type="submit" value="Submit">
+</form>
 
 
-<ul>
+<!-- <ul>
     {% for stat in traveler.stat_set.all %}
         <li>{{ stat.definition.name }}: {{ stat.score }}</li>
     {% endfor %}
@@ -36,4 +42,4 @@ Use check?
     {% for choice in traveler.node.choice_set.all %}
         <li><a href="{% url 'choice' traveler.id choice.id %}">{{ choice.text }}</a></li>
     {% endfor %}
-</ul>
+</ul> -->
