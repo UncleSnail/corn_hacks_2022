@@ -6,6 +6,7 @@ from Screed.models import *
 from django.contrib.auth.forms import UserCreationForm
 from .forms import *
 
+@login_required 
 def index(request):
     paragraphs = ['Does this work?','Am I sciencing?']
     context = {
@@ -13,20 +14,23 @@ def index(request):
     }
     return render(request, 'index.html', context)
 
+@login_required
 def user(request, user_id):
     user = get_object_or_404(User, pk=user_id)
     context = {'user': user}
     return render(request, 'user.html', context)
 
+@login_required
 def user_redirect(request):
     return HttpResponseRedirect(reverse(user, args=[request.user.id]))
 
-# @login_required
+@login_required
 def traveler(request, traveler_id):
     traveler = get_object_or_404(Traveler, pk=traveler_id)
     context = {'traveler': traveler}
     return render(request, 'traveler.html', context)
 
+@login_required
 def choice(request, traveler_id, choice_id):
     # Get the traveler and the choice.
     traveler = get_object_or_404(Traveler, pk=traveler_id)
@@ -52,6 +56,7 @@ def choice(request, traveler_id, choice_id):
     # Display the new traveler page.
     return HttpResponseRedirect(f'/screed/traveler/{traveler_id}')
 
+@login_required
 def new(request, user_id, parent_id):
     user = get_object_or_404(User, pk=user_id)
     parent = get_object_or_404(Node, pk=parent_id)
@@ -110,6 +115,7 @@ def new(request, user_id, parent_id):
     }
     return render(request, 'new.html', context)
 
+@login_required
 def new_item(request, user_id):
     user = get_object_or_404(User, pk=user_id)
     # if this is a POST request we need to process the form data
@@ -133,6 +139,7 @@ def new_item(request, user_id):
     }
     return render(request, 'new_item.html', context)
 
+@login_required
 def new_traveler(request, user_id):
     user = get_object_or_404(User, pk=user_id)
     # if this is a POST request we need to process the form data
