@@ -7,7 +7,7 @@ def register(request):
         register_form = CustomRegisterForm(request.POST)
         if register_form.is_valid():
             register_form.save()
-            messages.success(request, ("New User Account Created"))
+            # messages.success(request, ("New User Account Created"))
             return redirect('login')
 
     else:
