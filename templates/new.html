@@ -1,5 +1,20 @@
-<h1>{{ traveler.name }}</h1>
-<h2>Stats:</h2>
+<h1>New Story Node:</h1>
+<h2>From:</h2>
+<h3>{{ parent.title }}</h3>
+<p>{{ parent.text }}</p>
+<h2>Choice:</h2>
+<label for="choice">Choice Text:</label>
+<textarea id="choice" name="choice"></textarea>
+Use check?
+<h2>Check:</h2>
+<h2>New Node:</h2>
+<label for="title">Node Title:</label>
+<textarea id="title" name="title"></textarea>
+<br />
+<label for="text">Node Text:</label>
+<textarea id="text" name="text"></textarea>
+
+
 <ul>
     {% for stat in traveler.stat_set.all %}
         <li>{{ stat.definition.name }}: {{ stat.score }}</li>
@@ -22,5 +37,3 @@
         <li><a href="{% url 'choice' traveler.id choice.id %}">{{ choice.text }}</a></li>
     {% endfor %}
 </ul>
-
-<a href="{% url 'new' traveler.user.id traveler.node.id %}">New</a>

@@ -35,6 +35,15 @@ def choice(request, traveler_id, choice_id):
     # Display the new traveler page.
     return render(request, 'traveler.html', context)
 
+def new(request, user_id, parent_id):
+    user = get_object_or_404(User, pk=user_id)
+    parent = get_object_or_404(Node, pk=parent_id)
+    context = {
+        'user': user,
+        'parent': parent
+    }
+    return render(request, 'new.html', context)
+
 @login_required
 def private_place(request):
     return HttpResponse("Don't have access!", content_type="text/plain")
