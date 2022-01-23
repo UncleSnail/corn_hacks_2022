@@ -4,7 +4,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 from Screed.models import *
 from django.contrib.auth.forms import UserCreationForm
-from .forms import NewChoiceForm, NewNodeForm, NewRewardForm, NewCheckForm
+from .forms import *
 
 def index(request):
     paragraphs = ['Does this work?','Am I sciencing?']
@@ -54,7 +54,7 @@ def new(request, user_id, parent_id):
         reward_form = NewRewardForm(request.POST)
         check_form = NewCheckForm(request.POST)
         # check whether it's valid:
-        if choice_form.is_valid() and node_form.is_valid():
+        if choice_form.is_valid() and node_form.is_valid() and failure_form.is_valid() and reward_form.is_valid() and check_form.is_valid():
             # process the data in form.cleaned_data as required
             new_node = Node(
                 title = node_form.cleaned_data['title'],
@@ -91,3 +91,26 @@ def new(request, user_id, parent_id):
         'has_check': False,
     }
     return render(request, 'new.html', context)
+
+def new_item(request, user_id):
+    user = get_object_or_404(User, pk=user_id)
+    # if this is a POST request we need to process the form data
+    if request.method == 'POST':
+        # create a form instance and populate it with data from the request:
+        item_form = NewItemForm(request.POST)
+        # check whether it's valid:
+        if item_form.is_valid():
+            # process the data in form.cleaned_data as required
+            item_form.save()
+            # redirect to a new URL:
+            return HttpResponseRedirect(f'/screed/new_item/{user_id}/')
+
+    # if a GET (or any other method) we'll create a blank form
+    else:
+        item_form = NewItemForm()
+
+    context = {
+        'user': user,
+        'item_form': item_form,
+    }
+    return render(request, 'new_item.html', context)
