@@ -1,21 +1,35 @@
 // TODO: Switch to a watched (https://pypi.org/project/django-sass/) Sass compiler for production.
 
+$white: #eee;
+$black: #333;
+$highlight: rgb(206, 140, 140);
+
 body {
-    background-color: black
+    background-color: $black;
+    color: $white;
 }
 
-h1 {
-    color: white;
-    text-align: center;
+a {
+    color: $white;
+    &:hover,&:focus {
+        color: $highlight;
+    }
 }
 
-p {
-    color: white;
-    font-family: verdana;
-    text-align: center;
+.left,.center,.right {
+    padding: 10px;
 }
 
-label {
-    color: white;
-    font-family: verdana;
+.left {
+    float: left;
+}
+
+.center {
+    max-width: 600px;
+    margin: auto;
+    text-align: left;
+}
+
+.right {
+    float: right;
 }

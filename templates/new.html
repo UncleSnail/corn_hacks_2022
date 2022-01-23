@@ -1,0 +1,37 @@
+{% load sass_tags %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Node</title>
+    <link  href="{% sass_src 'style.scss' %}" rel="stylesheet" type="text/css">
+</head>
+<body>
+    <form action="/screed/new/{{user.id}}/{{parent.id}}/" method="post">
+        {% csrf_token %}
+        <h2>From:</h2>
+        <h3>{{ parent.title }}</h3>
+        <p>{{ parent.text }}</p>
+        <h2>Choice:</h2>
+        {{ choice_form }}
+        <h2>Check:</h2>
+        {% if has_check %}
+        {{ check_form }}
+        {% endif %}
+        <h2>Story Node:</h2>
+        {% if has_check %}
+        <h3>Success</h3>
+        {% endif %}
+        {{ node_form }}
+        {% if has_check %}
+        <h3>Failure</h3>
+        {{ failure_form }}
+        {% endif %}
+        <h2>Reward:</h2>
+        {{ reward_form }}
+        <input type="submit" value="Submit">
+    </form>
+</body>
+</html>

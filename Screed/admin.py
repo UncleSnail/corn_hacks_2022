@@ -2,7 +2,7 @@ from django.contrib import admin
 
 from .models import *
 
-admin.site.register(User)
+# admin.site.register(User)
 admin.site.register(Traveler)
 admin.site.register(StatDefinition)
 admin.site.register(Stat)

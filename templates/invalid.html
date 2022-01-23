@@ -24,22 +24,10 @@
             {% endfor %}
         </ul>
     </div>
-    <div class="right">
-        <a href="{% url 'user' traveler.user.id %}">{{ traveler.user }}</a>
-    </div>
 
     <div class="center">
-        <h2>{{ traveler.node.title }}</h2>
-        <p>{{ traveler.node.text }}</p>
-
-        <ul>
-            {% for choice in traveler.node.choice_set.all %}
-                <li><a href="{% url 'choice' traveler.id choice.id %}">{{ choice.text }}</a></li>
-            {% endfor %}
-        </ul>
-
-        {% if False %}<div><div>+ {{ traveler.node.positive }}</div><div>- {{ traveler.node.negative }}</div></div>{% endif %}
-        <a href="{% url 'new' traveler.user.id traveler.node.id %}">New Path</a>
+        <h2>Invalid choice!</h2>
+        <a href="{% url 'traveler' traveler.id %}">Back</a>
     </div>
 </body>
 </html>

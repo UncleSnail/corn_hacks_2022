@@ -1,15 +1,16 @@
 from django.db import models
+from django.contrib.auth.models import User
 
-class User(models.Model):
-    name = models.CharField(max_length=128)
-    email = models.EmailField()
-    score = models.IntegerField(default=1)
+# class User(models.Model):
+#     name = models.CharField(max_length=127)
+#     email = models.EmailField()
+#     score = models.IntegerField(default=1)
 
-    def __str__(self):
-        return self.name
+#     def __str__(self):
+#         return self.name
 
 class StatDefinition(models.Model):
-    name = models.CharField(max_length=256)
+    name = models.CharField(max_length=255)
     description = models.TextField()
     authors = models.ManyToManyField(User)
 
@@ -31,7 +32,7 @@ class ItemDefinition(models.Model):
 
     # An id for the item that does not change across versions.
     tag = models.IntegerField(null=True)
-    name = models.CharField(max_length=256)
+    name = models.CharField(max_length=255)
     type = models.CharField(
         max_length=1,
         choices=TYPES,
@@ -62,7 +63,7 @@ class ItemDefinition(models.Model):
     
 
 class Node(models.Model):
-    title = models.CharField(max_length=512)
+    title = models.CharField(max_length=511)
     text = models.TextField()
     authors = models.ManyToManyField(User)
     positive = models.IntegerField(default=1)
@@ -72,7 +73,7 @@ class Node(models.Model):
         return self.title
 
 class Traveler(models.Model):
-    name = models.CharField(max_length=128)
+    name = models.CharField(max_length=127)
     user = models.ForeignKey(
         User,
         on_delete=models.SET_NULL,
@@ -81,6 +82,7 @@ class Traveler(models.Model):
     node = models.ForeignKey(
         Node,
         on_delete=models.SET_NULL,
+        blank=True,
         null=True
     )
 
@@ -88,7 +90,7 @@ class Traveler(models.Model):
         return self.name
 
 class Stat(models.Model):
-    stat_definition = models.ForeignKey(
+    definition = models.ForeignKey(
         StatDefinition,
         on_delete=models.CASCADE,
         null=True
@@ -101,10 +103,10 @@ class Stat(models.Model):
     score = models.IntegerField(default=0)
 
     def __str__(self):
-        return f'{self.stat_definition} - {self.owner}'
+        return f'{self.definition} - {self.owner}'
 
 class Item(models.Model):
-    item_definition = models.ForeignKey(
+    definition = models.ForeignKey(
         ItemDefinition,
         on_delete=models.CASCADE,
         null=True
@@ -119,15 +121,16 @@ class Item(models.Model):
     )
 
     def __str__(self):
-        return f'{self.item_definition} - {self.owner}'
+        return f'{self.definition} - {self.owner}'
 
 class Edit(models.Model):
-    title = models.CharField(max_length=512)
+    title = models.CharField(max_length=511)
     description = models.TextField()
     text = models.TextField()
     author = models.OneToOneField(
         User,
         on_delete=models.SET_NULL,
+        blank=True,
         null=True
     )
     positive = models.IntegerField(default=1)
@@ -140,19 +143,21 @@ class Reward(models.Model):
     node = models.ForeignKey(
         Node,
         on_delete=models.CASCADE,
+        blank=True,
         null=True
     )
     item = models.ForeignKey(
         ItemDefinition,
         on_delete=models.CASCADE,
+        blank=True,
         null=True
     )
 
     def __str__(self):
-        return f'{self.item} <- {self.choice}'
+        return f'{self.item} <- {self.node}'
 
 class Check(models.Model):
-    title = models.CharField(max_length=512)
+    title = models.CharField(max_length=511)
     success_message = models.TextField()
     success_target = models.ForeignKey(
         Node,
@@ -176,6 +181,7 @@ class Check(models.Model):
     item_requirement = models.ForeignKey(
         ItemDefinition,
         on_delete=models.SET_NULL,
+        blank=True,
         null=True
     )
 
@@ -187,8 +193,7 @@ class Choice(models.Model):
     parent = models.ForeignKey(
         Node,
         on_delete=models.SET_NULL,
-        null=True,
-        related_name='choices'
+        null=True
     )
     target = models.ForeignKey(
         Node,
@@ -196,9 +201,10 @@ class Choice(models.Model):
         null=True,
         related_name='reached_by'
     )
-    choice_check = models.OneToOneField(
+    choice_check = models.ForeignKey(
         Check,
         on_delete=models.SET_NULL,
+        blank=True,
         null=True,
         related_name='parent'
     )
