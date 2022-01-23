@@ -36,19 +36,21 @@ def choice(request, traveler_id, choice_id):
         'choice': choice
     }
     # Update the traveler based on the choice.
-    traveler.node = choice.target
-    for reward in traveler.node.reward_set.all():
-        new_item = Item(
-            definition = reward.item,
-            quantity = reward.item.quantity,
-            owner = traveler
-        )
-        new_item.save()
-
-    traveler.save()
+    if traveler.node == choice.parent:
+        traveler.node = choice.target
+        for reward in traveler.node.reward_set.all():
+            new_item = Item(
+                definition = reward.item,
+                quantity = reward.item.quantity,
+                owner = traveler
+            )
+            new_item.save()
+        traveler.save()
+    else:
+        return render(request, 'invalid.html', context)
 
     # Display the new traveler page.
-    return render(request, 'traveler.html', context)
+    return HttpResponseRedirect(f'/screed/traveler/{traveler_id}')
 
 def new(request, user_id, parent_id):
     user = get_object_or_404(User, pk=user_id)
