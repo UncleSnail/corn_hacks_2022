@@ -93,7 +93,7 @@ def new(request, user_id, parent_id):
             if failure_form.is_valid() and check_form.is_valid():
                 pass
             # redirect to a new URL:
-            return HttpResponseRedirect('/thanks/')
+            return HttpResponseRedirect(f'/screed/user/{user.id}/')
 
     # if a GET (or any other method) we'll create a blank form
     else:
