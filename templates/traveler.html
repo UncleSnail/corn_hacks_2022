@@ -24,6 +24,9 @@
             {% endfor %}
         </ul>
     </div>
+    <div class="right">
+        <a href="{% url 'user' traveler.user.id %}">{{ traveler.user }}</a>
+    </div>
 
     <div class="center">
         <h2>{{ traveler.node.title }}</h2>
@@ -36,7 +39,7 @@
         </ul>
 
         {% if False %}<div><div>+ {{ traveler.node.positive }}</div><div>- {{ traveler.node.negative }}</div></div>{% endif %}
-        <a href="{% url 'new' traveler.user.id traveler.node.id %}">New</a>
+        <a href="{% url 'new' traveler.user.id traveler.node.id %}">New Path</a>
     </div>
 </body>
 </html>

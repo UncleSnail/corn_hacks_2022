@@ -5,16 +5,15 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>New Item</title>
     <link  href="{% sass_src 'style.scss' %}" rel="stylesheet" type="text/css">
 </head>
 <body>
-    <h1>{{ user.name }}</h1>
-    <ul>
-        {% for traveler in user.traveler_set.all %}
-            <li><a href="{% url 'traveler' traveler.id %}">{{ traveler.name }}</a></li>
-        {% endfor %}
-    </ul>
-    <a href="{% url 'new_traveler' user.id %}">New Traveler</a>
+    <form action="/screed/new_traveler/{{user.id}}/" method="post">
+        {% csrf_token %}
+        <h2>Traveler:</h2>
+        {{ traveler_form }}
+        <input type="submit" value="Submit">
+    </form>
 </body>
 </html>

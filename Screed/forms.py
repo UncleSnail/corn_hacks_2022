@@ -1,5 +1,5 @@
 from django import forms
-from .models import Choice, Node, Check, Reward, ItemDefinition
+from .models import *
 
 class NewChoiceForm(forms.ModelForm):
     class Meta:
@@ -15,6 +15,11 @@ class NewItemForm(forms.ModelForm):
     class Meta:
         model = ItemDefinition
         fields = ['name', 'type', 'description', 'quantity', 'power_type', 'power', 'cost_type', 'cost']
+
+class NewTravelerForm(forms.ModelForm):
+    class Meta:
+        model = Traveler
+        fields = ['name']
 
 class NewRewardForm(forms.ModelForm):
     class Meta:

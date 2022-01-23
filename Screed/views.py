@@ -132,3 +132,29 @@ def new_item(request, user_id):
         'item_form': item_form,
     }
     return render(request, 'new_item.html', context)
+
+def new_traveler(request, user_id):
+    user = get_object_or_404(User, pk=user_id)
+    # if this is a POST request we need to process the form data
+    if request.method == 'POST':
+        # create a form instance and populate it with data from the request:
+        traveler_form = NewTravelerForm(request.POST)
+        # check whether it's valid:
+        if traveler_form.is_valid():
+            # process the data in form.cleaned_data as required
+            new_traveler = traveler_form.save()
+            new_traveler.user = user
+            new_traveler.node = get_object_or_404(Node, pk=1)
+            new_traveler.save()
+            # redirect to a new URL:
+            return HttpResponseRedirect(f'/screed/traveler/{new_traveler.id}/')
+
+    # if a GET (or any other method) we'll create a blank form
+    else:
+        traveler_form = NewTravelerForm()
+
+    context = {
+        'user': user,
+        'traveler_form': traveler_form,
+    }
+    return render(request, 'new_traveler.html', context)
