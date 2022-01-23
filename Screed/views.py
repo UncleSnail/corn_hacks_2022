@@ -10,6 +10,7 @@ def index(request):
     }
     return render(request, 'index.html',context)
 
+
 @login_required
 def private_place(request):
     return HttpResponse("Don't have access!", content_type="text/plain")
