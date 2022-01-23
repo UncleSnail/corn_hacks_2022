@@ -1,0 +1,18 @@
+
+{% block title %}
+
+{% load crispy_forms_tags %}
+<title>Register - Screed </title>
+{% endblock title %}
+
+{% block content %}
+    <div class="container">
+        <h2>Register to Start Playing Screed!!</h2>
+        <form method="POST" class="mt-5">
+            {% csrf_token %}
+            {{ register_form|crispy }}
+        
+        <button type="submit">Register</button>
+        </form>
+    </div>
+{% endblock content %}
