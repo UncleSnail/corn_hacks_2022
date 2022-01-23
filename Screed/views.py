@@ -6,6 +6,7 @@ from django.contrib.auth.forms import UserCreationForm
 
 
 
+@login_required
 def index(request):
     return render(request, 'index.html', {})
 

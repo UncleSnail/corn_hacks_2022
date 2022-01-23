@@ -7,6 +7,20 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>Hello World the Screed is here </h1>
+    <div class="Navbar" id="myTopnav">
+        <a class="active" href="#Home"> Home</a>
+        <a href="#Services"> Services</a>
+        <a href="#Contacts"> Contacts</a>
+      </div>
+    </div>
+    {% if user.is_authenticated %}
+    <div class="container">
+        <div class="center"> Logged in as {{ user.username }}</div> 
+        <a href="{% url 'logout' %}"><button type="submit">Logout</button></a>
+    </div>
+    {% else %}
+    <a href="{% url 'login' %}"><button type="submit">Login</button></a>
+    <a href="{% url 'register' %}"><button type="submit">Register</button></a>
+    {% endif %}
 </body>
 </html>
