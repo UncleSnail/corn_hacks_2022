@@ -45,6 +45,9 @@ class ItemDefinition(models.Model):
     power = models.IntegerField(default=0)
     cost = models.IntegerField(default=0)
 
+    def __str__(self):
+        return self.name
+
 class Item(models.Model):
     item_definition = models.ForeignKey(
         ItemDefinition,
@@ -59,6 +62,9 @@ class Item(models.Model):
         on_delete=models.CASCADE,
         null=True
     )
+
+    def __str__(self):
+        return f'{self.item_definition} - {self.owner}'
     
 
 class Node(models.Model):
@@ -67,7 +73,10 @@ class Node(models.Model):
     authors = models.ManyToManyField(User)
     score = models.IntegerField(default=1)
 
-class edit(models.Model):
+    def __str__(self):
+        return self.title
+
+class Edit(models.Model):
     title = models.CharField(max_length=512)
     description = models.TextField()
     text = models.TextField()
@@ -78,6 +87,9 @@ class edit(models.Model):
     )
     positive = models.IntegerField(default=1)
     negative = models.IntegerField(default=1)
+
+    def __str__(self):
+        return self.title
 
 class Choice(models.Model):
     text = models.TextField()
@@ -94,6 +106,9 @@ class Choice(models.Model):
         related_name='reached_by'
     )
 
+    def __str__(self):
+        return self.text
+
 class Reward(models.Model):
     choice = models.ForeignKey(
         Choice,
@@ -105,3 +120,6 @@ class Reward(models.Model):
         on_delete=models.CASCADE,
         null=True
     )
+
+    def __str__(self):
+        return f'{self.item} <- {self.choice}'
