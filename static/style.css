@@ -6,7 +6,12 @@ h1 {
   text-align: center; }
 
 p {
+  color: white;
   font-family: verdana;
   text-align: center; }
+
+label {
+  color: white;
+  font-family: verdana; }
 
 /*# sourceMappingURL=style.css.map */

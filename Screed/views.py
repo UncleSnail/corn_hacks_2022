@@ -2,5 +2,8 @@ from django.shortcuts import render
 from django.http import HttpResponse
 
 def index(request):
-    #return HttpResponse("Hello, world. You're at the pulls index.")
-    return render(request, 'index.html',{})
+    paragraphs = ['Does this work?','Am I sciencing?']
+    context = {
+        'paragraphs': paragraphs
+    }
+    return render(request, 'index.html',context)
