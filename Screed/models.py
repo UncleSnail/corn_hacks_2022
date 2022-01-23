@@ -88,7 +88,7 @@ class Traveler(models.Model):
         return self.name
 
 class Stat(models.Model):
-    stat_definition = models.ForeignKey(
+    definition = models.ForeignKey(
         StatDefinition,
         on_delete=models.CASCADE,
         null=True
@@ -101,10 +101,10 @@ class Stat(models.Model):
     score = models.IntegerField(default=0)
 
     def __str__(self):
-        return f'{self.stat_definition} - {self.owner}'
+        return f'{self.definition} - {self.owner}'
 
 class Item(models.Model):
-    item_definition = models.ForeignKey(
+    definition = models.ForeignKey(
         ItemDefinition,
         on_delete=models.CASCADE,
         null=True
@@ -119,7 +119,7 @@ class Item(models.Model):
     )
 
     def __str__(self):
-        return f'{self.item_definition} - {self.owner}'
+        return f'{self.definition} - {self.owner}'
 
 class Edit(models.Model):
     title = models.CharField(max_length=512)
@@ -187,8 +187,7 @@ class Choice(models.Model):
     parent = models.ForeignKey(
         Node,
         on_delete=models.SET_NULL,
-        null=True,
-        related_name='choices'
+        null=True
     )
     target = models.ForeignKey(
         Node,
@@ -196,7 +195,7 @@ class Choice(models.Model):
         null=True,
         related_name='reached_by'
     )
-    choice_check = models.OneToOneField(
+    choice_check = models.ForeignKey(
         Check,
         on_delete=models.SET_NULL,
         null=True,

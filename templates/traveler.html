@@ -1,3 +1,24 @@
 <h1>{{ traveler.name }}</h1>
+<h2>Stats:</h2>
+<ul>
+    {% for stat in traveler.stat_set.all %}
+        <li>{{ stat.definition.name }}: {{ stat.score }}</li>
+    {% endfor %}
+</ul>
+<h2>Items:</h2>
+<ul>
+    {% for item in traveler.item_set.all %}
+        <li>{{ item.definition.name }}: {{ item.quantity }}</li>
+    {% endfor %}
+</ul>
+
 <h2>{{ traveler.node.title }}</h2>
 <p>{{ traveler.node.text }}</p>
+{{ traveler.node.positive }}
+{{ traveler.node.negative }}
+
+<ul>
+    {% for choice in traveler.node.choice_set.all %}
+        <li><a href="{% url 'choice' traveler.id choice.id %}">{{ choice.text }}</a></li>
+    {% endfor %}
+</ul>

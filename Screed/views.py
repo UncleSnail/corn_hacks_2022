@@ -20,6 +20,21 @@ def traveler(request, traveler_id):
     context = {'traveler': traveler}
     return render(request, 'traveler.html', context)
 
+def choice(request, traveler_id, choice_id):
+    # Get the traveler and the choice.
+    traveler = get_object_or_404(Traveler, pk=traveler_id)
+    choice = get_object_or_404(Choice, pk=choice_id)
+    context = {
+        'traveler': traveler,
+        'choice': choice
+    }
+    # Update the traveler based on the choice.
+    traveler.node = choice.target
+    traveler.save()
+
+    # Display the new traveler page.
+    return render(request, 'traveler.html', context)
+
 @login_required
 def private_place(request):
     return HttpResponse("Don't have access!", content_type="text/plain")
