@@ -3,7 +3,7 @@ from django.db import models
 class User(models.Model):
     name = models.CharField(max_length=128)
     email = models.EmailField()
-    score = models.IntegerField()
+    score = models.IntegerField(default=1)
 
     def __str__(self):
         return self.name
@@ -31,7 +31,7 @@ class ItemDefinition(models.Model):
     ]
 
     # An id for the item that does not change across versions.
-    tag = models.IntegerField()
+    tag = models.IntegerField(null=True)
     name = models.CharField(max_length=256)
     type = models.CharField(
         max_length=1,
@@ -42,20 +42,22 @@ class ItemDefinition(models.Model):
     quantity = models.IntegerField(
         default=0
     )
-    power = models.IntegerField()
-    cost = models.IntegerField()
+    power = models.IntegerField(default=0)
+    cost = models.IntegerField(default=0)
 
 class Item(models.Model):
     item_definition = models.ForeignKey(
         ItemDefinition,
-        on_delete=models.CASCADE
+        on_delete=models.CASCADE,
+        null=True
     )
     quantity = models.IntegerField(
         default=0
     )
     owner = models.ForeignKey(
         Traveler,
-        on_delete=models.CASCADE
+        on_delete=models.CASCADE,
+        null=True
     )
     
 
@@ -63,7 +65,7 @@ class Node(models.Model):
     title = models.CharField(max_length=512)
     text = models.TextField()
     authors = models.ManyToManyField(User)
-    score = models.IntegerField()
+    score = models.IntegerField(default=1)
 
 class edit(models.Model):
     title = models.CharField(max_length=512)
@@ -74,8 +76,8 @@ class edit(models.Model):
         on_delete=models.SET_NULL,
         null=True
     )
-    positive = models.IntegerField()
-    negative = models.IntegerField()
+    positive = models.IntegerField(default=1)
+    negative = models.IntegerField(default=1)
 
 class Choice(models.Model):
     text = models.TextField()
@@ -95,9 +97,11 @@ class Choice(models.Model):
 class Reward(models.Model):
     choice = models.ForeignKey(
         Choice,
-        on_delete=models.CASCADE
+        on_delete=models.CASCADE,
+        null=True
     )
     item = models.ForeignKey(
         ItemDefinition,
-        on_delete=models.CASCADE
+        on_delete=models.CASCADE,
+        null=True
     )
