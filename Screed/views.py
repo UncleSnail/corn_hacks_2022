@@ -1,6 +1,7 @@
 from django.shortcuts import get_object_or_404, render
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
+from django.urls import reverse
 from Screed.models import *
 from django.contrib.auth.forms import UserCreationForm
 
@@ -17,7 +18,10 @@ def user(request, user_id):
     context = {'user': user}
     return render(request, 'user.html', context)
 
-@login_required
+def user_redirect(request):
+    return HttpResponseRedirect(reverse(user, args=[request.user.id]))
+
+# @login_required
 def traveler(request, traveler_id):
     traveler = get_object_or_404(Traveler, pk=traveler_id)
     context = {'traveler': traveler}
