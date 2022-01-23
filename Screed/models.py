@@ -154,7 +154,7 @@ class Reward(models.Model):
     )
 
     def __str__(self):
-        return f'{self.item} <- {self.choice}'
+        return f'{self.item} <- {self.node}'
 
 class Check(models.Model):
     title = models.CharField(max_length=511)

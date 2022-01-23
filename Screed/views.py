@@ -37,6 +37,14 @@ def choice(request, traveler_id, choice_id):
     }
     # Update the traveler based on the choice.
     traveler.node = choice.target
+    for reward in traveler.node.reward_set.all():
+        new_item = Item(
+            definition = reward.item,
+            quantity = reward.item.quantity,
+            owner = traveler
+        )
+        new_item.save()
+
     traveler.save()
 
     # Display the new traveler page.
@@ -54,7 +62,7 @@ def new(request, user_id, parent_id):
         reward_form = NewRewardForm(request.POST)
         check_form = NewCheckForm(request.POST)
         # check whether it's valid:
-        if choice_form.is_valid() and node_form.is_valid() and failure_form.is_valid() and reward_form.is_valid() and check_form.is_valid():
+        if choice_form.is_valid() and node_form.is_valid():
             # process the data in form.cleaned_data as required
             new_node = Node(
                 title = node_form.cleaned_data['title'],
@@ -69,6 +77,14 @@ def new(request, user_id, parent_id):
                 target = new_node
             )
             new_choice.save()
+            if reward_form.is_valid():
+                new_reward = Reward(
+                    node = new_node,
+                    item = reward_form.cleaned_data['item']
+                )
+                new_reward.save()
+            if failure_form.is_valid() and check_form.is_valid():
+                pass
             # redirect to a new URL:
             return HttpResponseRedirect('/thanks/')
 
