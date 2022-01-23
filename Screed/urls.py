@@ -8,7 +8,7 @@ urlpatterns = [
     path('user_redirect/', views.user_redirect, name='user_redirect'),
     path('traveler/<int:traveler_id>/', views.traveler, name='traveler'),
     path('choice/<int:traveler_id>/<int:choice_id>/', views.choice, name='choice'),
-    path('new/<int:user_id>/<int:parent_id>/', views.new_node, name='new'),
+    path('new/<int:user_id>/<int:parent_id>/', views.new, name='new'),
     path('login', auth_views.LoginView.as_view(template_name='login.html'),name='login'),
     path('logout', auth_views.LogoutView.as_view(),name='logout'),
 ]

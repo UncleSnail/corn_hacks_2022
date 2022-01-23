@@ -1,4 +1,12 @@
 from django import forms
+from .models import Choice, Node
 
-class NewForm(forms.Form):
-    your_name = forms.CharField(label='Your name', max_length=10)
+class NewChoiceForm(forms.ModelForm):
+    class Meta:
+        model = Choice
+        fields = ['text']
+
+class NewNodeForm(forms.ModelForm):
+    class Meta:
+        model = Node
+        fields = ['title', 'text']

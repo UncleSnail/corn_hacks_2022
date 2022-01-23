@@ -4,6 +4,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 from Screed.models import *
 from django.contrib.auth.forms import UserCreationForm
+from .forms import NewChoiceForm, NewNodeForm
 
 def index(request):
     paragraphs = ['Does this work?','Am I sciencing?']
@@ -41,38 +42,42 @@ def choice(request, traveler_id, choice_id):
     # Display the new traveler page.
     return render(request, 'traveler.html', context)
 
-# def new(request, user_id, parent_id):
-    # user = get_object_or_404(User, pk=user_id)
-    # parent = get_object_or_404(Node, pk=parent_id)
-    # context = {
-    #     'user': user,
-    #     'parent': parent
-    # }
-#     return render(request, 'new.html', context)
-
-from .forms import NewForm
-
-def new_node(request, user_id, parent_id):
+def new(request, user_id, parent_id):
     user = get_object_or_404(User, pk=user_id)
     parent = get_object_or_404(Node, pk=parent_id)
     # if this is a POST request we need to process the form data
     if request.method == 'POST':
         # create a form instance and populate it with data from the request:
-        form = NewForm(request.POST)
+        node_form = NewNodeForm(request.POST)
+        choice_form = NewChoiceForm(request.POST)
         # check whether it's valid:
-        if form.is_valid():
+        if choice_form.is_valid() and node_form.is_valid():
             # process the data in form.cleaned_data as required
-            # ...
+            new_node = Node(
+                title = node_form.cleaned_data['title'],
+                text = node_form.cleaned_data['text']
+            )
+            new_node.save()
+            new_node.authors.add(user)
+            # Choice
+            new_choice = Choice(
+                text = choice_form.cleaned_data['text'],
+                parent = parent,
+                target = new_node
+            )
+            new_choice.save()
             # redirect to a new URL:
             return HttpResponseRedirect('/thanks/')
 
     # if a GET (or any other method) we'll create a blank form
     else:
-        form = NewForm()
+        choice_form = NewChoiceForm()
+        node_form = NewNodeForm()
 
     context = {
         'user': user,
         'parent': parent,
-        'form': form
+        'choice_form': choice_form,
+        'node_form': node_form
     }
     return render(request, 'new.html', context)

@@ -2,7 +2,7 @@ from django.db import models
 # from django.contrib.auth.models import User
 
 class User(models.Model):
-    name = models.CharField(max_length=128)
+    name = models.CharField(max_length=127)
     email = models.EmailField()
     score = models.IntegerField(default=1)
 
@@ -32,7 +32,7 @@ class ItemDefinition(models.Model):
 
     # An id for the item that does not change across versions.
     tag = models.IntegerField(null=True)
-    name = models.CharField(max_length=256)
+    name = models.CharField(max_length=255)
     type = models.CharField(
         max_length=1,
         choices=TYPES,
@@ -63,7 +63,7 @@ class ItemDefinition(models.Model):
     
 
 class Node(models.Model):
-    title = models.CharField(max_length=512)
+    title = models.CharField(max_length=511)
     text = models.TextField()
     authors = models.ManyToManyField(User)
     positive = models.IntegerField(default=1)
@@ -73,7 +73,7 @@ class Node(models.Model):
         return self.title
 
 class Traveler(models.Model):
-    name = models.CharField(max_length=128)
+    name = models.CharField(max_length=127)
     user = models.ForeignKey(
         User,
         on_delete=models.SET_NULL,
@@ -123,7 +123,7 @@ class Item(models.Model):
         return f'{self.definition} - {self.owner}'
 
 class Edit(models.Model):
-    title = models.CharField(max_length=512)
+    title = models.CharField(max_length=511)
     description = models.TextField()
     text = models.TextField()
     author = models.OneToOneField(
@@ -153,7 +153,7 @@ class Reward(models.Model):
         return f'{self.item} <- {self.choice}'
 
 class Check(models.Model):
-    title = models.CharField(max_length=512)
+    title = models.CharField(max_length=511)
     success_message = models.TextField()
     success_target = models.ForeignKey(
         Node,

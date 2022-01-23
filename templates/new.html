@@ -16,7 +16,13 @@ Use check?
 
 <form action="/screed/new/{{user.id}}/{{parent.id}}/" method="post">
     {% csrf_token %}
-    {{ form }}
+    <h2>From:</h2>
+    <h3>{{ parent.title }}</h3>
+    <p>{{ parent.text }}</p>
+    <h2>Choice:</h2>
+    {{ choice_form }}
+    <h2>Story Node:</h2>
+    {{ node_form }}
     <input type="submit" value="Submit">
 </form>
 
