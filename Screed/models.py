@@ -82,6 +82,7 @@ class Traveler(models.Model):
     node = models.ForeignKey(
         Node,
         on_delete=models.SET_NULL,
+        blank=True,
         null=True
     )
 
@@ -129,6 +130,7 @@ class Edit(models.Model):
     author = models.OneToOneField(
         User,
         on_delete=models.SET_NULL,
+        blank=True,
         null=True
     )
     positive = models.IntegerField(default=1)
@@ -141,11 +143,13 @@ class Reward(models.Model):
     node = models.ForeignKey(
         Node,
         on_delete=models.CASCADE,
+        blank=True,
         null=True
     )
     item = models.ForeignKey(
         ItemDefinition,
         on_delete=models.CASCADE,
+        blank=True,
         null=True
     )
 
@@ -177,6 +181,7 @@ class Check(models.Model):
     item_requirement = models.ForeignKey(
         ItemDefinition,
         on_delete=models.SET_NULL,
+        blank=True,
         null=True
     )
 
@@ -199,6 +204,7 @@ class Choice(models.Model):
     choice_check = models.ForeignKey(
         Check,
         on_delete=models.SET_NULL,
+        blank=True,
         null=True,
         related_name='parent'
     )
