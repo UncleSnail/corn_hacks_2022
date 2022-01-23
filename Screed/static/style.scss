@@ -2,7 +2,7 @@
 
 $white: #eee;
 $black: #333;
-$highlight: rgb(167, 129, 123);
+$highlight: rgb(206, 140, 140);
 
 body {
     background-color: $black;
@@ -25,9 +25,9 @@ a {
 }
 
 .center {
-    width: 60vw;
+    max-width: 600px;
     margin: auto;
-    text-align: center;
+    text-align: left;
 }
 
 .right {

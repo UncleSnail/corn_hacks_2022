@@ -5,7 +5,7 @@ body {
 a {
   color: #eee; }
   a:hover, a:focus {
-    color: #a7817b; }
+    color: #ce8c8c; }
 
 .left, .center, .right {
   padding: 10px; }
@@ -14,9 +14,9 @@ a {
   float: left; }
 
 .center {
-  width: 60vw;
+  max-width: 600px;
   margin: auto;
-  text-align: center; }
+  text-align: left; }
 
 .right {
   float: right; }

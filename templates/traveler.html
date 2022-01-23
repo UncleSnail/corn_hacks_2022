@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>{{ traveler.name }} - {{ traveler.node.title }}</title>
     <link  href="{% sass_src 'style.scss' %}" rel="stylesheet" type="text/css">
 </head>
 <body>
@@ -35,7 +35,7 @@
             {% endfor %}
         </ul>
 
-        <div><div>+ {{ traveler.node.positive }}</div><div>- {{ traveler.node.negative }}</div></div>
+        {% if False %}<div><div>+ {{ traveler.node.positive }}</div><div>- {{ traveler.node.negative }}</div></div>{% endif %}
         <a href="{% url 'new' traveler.user.id traveler.node.id %}">New</a>
     </div>
 </body>
