@@ -1,16 +1,16 @@
 from django.db import models
-# from django.contrib.auth.models import User
+from django.contrib.auth.models import User
 
-class User(models.Model):
-    name = models.CharField(max_length=127)
-    email = models.EmailField()
-    score = models.IntegerField(default=1)
+# class User(models.Model):
+#     name = models.CharField(max_length=127)
+#     email = models.EmailField()
+#     score = models.IntegerField(default=1)
 
-    def __str__(self):
-        return self.name
+#     def __str__(self):
+#         return self.name
 
 class StatDefinition(models.Model):
-    name = models.CharField(max_length=256)
+    name = models.CharField(max_length=255)
     description = models.TextField()
     authors = models.ManyToManyField(User)
 
