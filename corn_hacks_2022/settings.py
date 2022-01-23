@@ -136,3 +136,5 @@ SASS_PROCESSOR_ROOT = os.path.join(BASE_DIR,'static')
 # Login
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 LOGIN_REDIRECT_URL = 'user_redirect'
+LOGIN_REDIRECT_URL = 'index'
+LOGIN_URL = 'login'
