@@ -1,0 +1,21 @@
+// TODO: Switch to a watched (https://pypi.org/project/django-sass/) Sass compiler for production.
+
+body {
+    background-color: black
+}
+
+h1 {
+    color: white;
+    text-align: center;
+}
+
+p {
+    color: white;
+    font-family: verdana;
+    text-align: center;
+}
+
+label {
+    color: white;
+    font-family: verdana;
+}

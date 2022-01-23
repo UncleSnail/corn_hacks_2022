@@ -1,3 +1,4 @@
+{% load sass_tags %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,8 +6,21 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link  href="{% sass_src 'style.scss' %}" rel="stylesheet" type="text/css">
 </head>
 <body>
     <h1>Hello World the Screed is here </h1>
+    <p> Once up on a time...</p>
+    {% for paragraph in paragraphs%} 
+    <p> {{paragraph}}</p>
+    {% endfor %} 
+    <center>
+    <br><br>
+    <label for="entry"> Your contribution here: </label>
+    <br><br>
+    <textarea id="entry" name="entry" cols = "100" style="height:100px; width:400px"> </textarea>
+    <br>
+    <input type="submit" value="Submit" align="center">
+    </center>
 </body>
 </html>
