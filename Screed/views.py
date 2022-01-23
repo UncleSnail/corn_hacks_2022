@@ -4,7 +4,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 from Screed.models import *
 from django.contrib.auth.forms import UserCreationForm
-from .forms import NewChoiceForm, NewNodeForm
+from .forms import NewChoiceForm, NewNodeForm, NewRewardForm, NewCheckForm
 
 def index(request):
     paragraphs = ['Does this work?','Am I sciencing?']
@@ -49,7 +49,10 @@ def new(request, user_id, parent_id):
     if request.method == 'POST':
         # create a form instance and populate it with data from the request:
         node_form = NewNodeForm(request.POST)
+        failure_form = NewNodeForm(request.POST)
         choice_form = NewChoiceForm(request.POST)
+        reward_form = NewRewardForm(request.POST)
+        check_form = NewCheckForm(request.POST)
         # check whether it's valid:
         if choice_form.is_valid() and node_form.is_valid():
             # process the data in form.cleaned_data as required
@@ -73,11 +76,18 @@ def new(request, user_id, parent_id):
     else:
         choice_form = NewChoiceForm()
         node_form = NewNodeForm()
+        failure_form = NewNodeForm()
+        reward_form = NewRewardForm()
+        check_form = NewCheckForm()
 
     context = {
         'user': user,
         'parent': parent,
         'choice_form': choice_form,
-        'node_form': node_form
+        'node_form': node_form,
+        'failure_form': failure_form,
+        'reward_form': reward_form,
+        'check_form': check_form,
+        'has_check': False,
     }
     return render(request, 'new.html', context)

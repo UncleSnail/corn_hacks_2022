@@ -21,8 +21,21 @@ Use check?
     <p>{{ parent.text }}</p>
     <h2>Choice:</h2>
     {{ choice_form }}
+    <h2>Check:</h2>
+    {% if has_check %}
+    {{ check_form }}
+    {% endif %}
     <h2>Story Node:</h2>
+    {% if has_check %}
+    <h3>Success</h3>
+    {% endif %}
     {{ node_form }}
+    {% if has_check %}
+    <h3>Failure</h3>
+    {{ failure_form }}
+    {% endif %}
+    <h2>Reward:</h2>
+    {{ reward_form }}
     <input type="submit" value="Submit">
 </form>
 
