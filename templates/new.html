@@ -1,64 +1,37 @@
-<!-- <h1>New Story Node:</h1>
-<h2>From:</h2>
-<h3>{{ parent.title }}</h3>
-<p>{{ parent.text }}</p>
-<h2>Choice:</h2>
-<label for="choice">Choice Text:</label>
-<textarea id="choice" name="choice"></textarea>
-Use check?
-<h2>Check:</h2>
-<h2>New Node:</h2>
-<label for="title">Node Title:</label>
-<textarea id="title" name="title"></textarea>
-<br />
-<label for="text">Node Text:</label>
-<textarea id="text" name="text"></textarea> -->
-
-<form action="/screed/new/{{user.id}}/{{parent.id}}/" method="post">
-    {% csrf_token %}
-    <h2>From:</h2>
-    <h3>{{ parent.title }}</h3>
-    <p>{{ parent.text }}</p>
-    <h2>Choice:</h2>
-    {{ choice_form }}
-    <h2>Check:</h2>
-    {% if has_check %}
-    {{ check_form }}
-    {% endif %}
-    <h2>Story Node:</h2>
-    {% if has_check %}
-    <h3>Success</h3>
-    {% endif %}
-    {{ node_form }}
-    {% if has_check %}
-    <h3>Failure</h3>
-    {{ failure_form }}
-    {% endif %}
-    <h2>Reward:</h2>
-    {{ reward_form }}
-    <input type="submit" value="Submit">
-</form>
-
-
-<!-- <ul>
-    {% for stat in traveler.stat_set.all %}
-        <li>{{ stat.definition.name }}: {{ stat.score }}</li>
-    {% endfor %}
-</ul>
-<h2>Items:</h2>
-<ul>
-    {% for item in traveler.item_set.all %}
-        <li>{{ item.definition.name }}: {{ item.quantity }}</li>
-    {% endfor %}
-</ul>
-
-<h2>{{ traveler.node.title }}</h2>
-<p>{{ traveler.node.text }}</p>
-<div><div>+ {{ traveler.node.positive }}</div><div>- {{ traveler.node.negative }}</div></div>
-
-
-<ul>
-    {% for choice in traveler.node.choice_set.all %}
-        <li><a href="{% url 'choice' traveler.id choice.id %}">{{ choice.text }}</a></li>
-    {% endfor %}
-</ul> -->
+{% load sass_tags %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link  href="{% sass_src 'style.scss' %}" rel="stylesheet" type="text/css">
+</head>
+<body>
+    <form action="/screed/new/{{user.id}}/{{parent.id}}/" method="post">
+        {% csrf_token %}
+        <h2>From:</h2>
+        <h3>{{ parent.title }}</h3>
+        <p>{{ parent.text }}</p>
+        <h2>Choice:</h2>
+        {{ choice_form }}
+        <h2>Check:</h2>
+        {% if has_check %}
+        {{ check_form }}
+        {% endif %}
+        <h2>Story Node:</h2>
+        {% if has_check %}
+        <h3>Success</h3>
+        {% endif %}
+        {{ node_form }}
+        {% if has_check %}
+        <h3>Failure</h3>
+        {{ failure_form }}
+        {% endif %}
+        <h2>Reward:</h2>
+        {{ reward_form }}
+        <input type="submit" value="Submit">
+    </form>
+</body>
+</html>

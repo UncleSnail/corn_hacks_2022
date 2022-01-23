@@ -1,7 +1,20 @@
-<h1>{{ user.name }}</h1>
-{{user.traveler_set.all}}
-<ul>
-    {% for traveler in user.traveler_set.all %}
-        <li><a href="{% url 'traveler' traveler.id %}">{{ traveler.name }}</a></li>
-    {% endfor %}
-</ul>
+{% load sass_tags %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link  href="{% sass_src 'style.scss' %}" rel="stylesheet" type="text/css">
+</head>
+<body>
+    <h1>{{ user.name }}</h1>
+    {{user.traveler_set.all}}
+    <ul>
+        {% for traveler in user.traveler_set.all %}
+            <li><a href="{% url 'traveler' traveler.id %}">{{ traveler.name }}</a></li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

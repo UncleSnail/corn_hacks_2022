@@ -1,17 +1,24 @@
 body {
-  background-color: black; }
+  background-color: #333;
+  color: #eee; }
 
-h1 {
-  color: white;
+a {
+  color: #eee; }
+  a:hover, a:focus {
+    color: #a7817b; }
+
+.left, .center, .right {
+  padding: 10px; }
+
+.left {
+  float: left; }
+
+.center {
+  width: 60vw;
+  margin: auto;
   text-align: center; }
 
-p {
-  color: white;
-  font-family: verdana;
-  text-align: center; }
-
-label {
-  color: white;
-  font-family: verdana; }
+.right {
+  float: right; }
 
 /*# sourceMappingURL=style.css.map */

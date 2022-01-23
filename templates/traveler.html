@@ -1,26 +1,42 @@
-<h1>{{ traveler.name }}</h1>
-<h2>Stats:</h2>
-<ul>
-    {% for stat in traveler.stat_set.all %}
-        <li>{{ stat.definition.name }}: {{ stat.score }}</li>
-    {% endfor %}
-</ul>
-<h2>Items:</h2>
-<ul>
-    {% for item in traveler.item_set.all %}
-        <li>{{ item.definition.name }}: {{ item.quantity }}</li>
-    {% endfor %}
-</ul>
+{% load sass_tags %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link  href="{% sass_src 'style.scss' %}" rel="stylesheet" type="text/css">
+</head>
+<body>
+    <div class="left">
+        <h1>{{ traveler.name }}</h1>
+        <h2>Stats:</h2>
+        <ul>
+            {% for stat in traveler.stat_set.all %}
+                <li>{{ stat.definition.name }}: {{ stat.score }}</li>
+            {% endfor %}
+        </ul>
+        <h2>Items:</h2>
+        <ul>
+            {% for item in traveler.item_set.all %}
+                <li>{{ item.definition.name }}: {{ item.quantity }}</li>
+            {% endfor %}
+        </ul>
+    </div>
 
-<h2>{{ traveler.node.title }}</h2>
-<p>{{ traveler.node.text }}</p>
-<div><div>+ {{ traveler.node.positive }}</div><div>- {{ traveler.node.negative }}</div></div>
+    <div class="center">
+        <h2>{{ traveler.node.title }}</h2>
+        <p>{{ traveler.node.text }}</p>
 
+        <ul>
+            {% for choice in traveler.node.choice_set.all %}
+                <li><a href="{% url 'choice' traveler.id choice.id %}">{{ choice.text }}</a></li>
+            {% endfor %}
+        </ul>
 
-<ul>
-    {% for choice in traveler.node.choice_set.all %}
-        <li><a href="{% url 'choice' traveler.id choice.id %}">{{ choice.text }}</a></li>
-    {% endfor %}
-</ul>
-
-<a href="{% url 'new' traveler.user.id traveler.node.id %}">New</a>
+        <div><div>+ {{ traveler.node.positive }}</div><div>- {{ traveler.node.negative }}</div></div>
+        <a href="{% url 'new' traveler.user.id traveler.node.id %}">New</a>
+    </div>
+</body>
+</html>
